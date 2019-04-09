@@ -4,11 +4,13 @@ const web3ext = require('./utils/web3ext');
 const Web3 = require('web3');
 const Staker = require('./incentive_utils/staker')
 const RewardRate = require('./incentive_utils/rewardRate')
+const AddrIncentive = require('./incentive_utils/getIncentive')
 
 let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
 const staker = new Staker(web3)
 const rewardRate = new RewardRate(web3)
+const addrIncentive = new AddrIncentive(web3)
 
 web3ext.extend(web3);
 
@@ -21,6 +23,9 @@ async function getInfoFromWeb3() {
     minerCount: staker.getMinerCount(blockNumber),
     delegatorCount: staker.getDelegatorCount(blockNumber),
     delePartiCnt: staker.getDelegateSenderCount(blockNumber),
+    epochID: web3.pos.getEpochID(),
+    slotID: web3.pos.getSlotID(),
+    epochPercent: web3.pos.getSlotID()*100 / web3.pos.getSlotCount(),
   }
 }
 
@@ -38,6 +43,14 @@ async function calcDelegator(data) {
   return {
     delegateTotalReward: ret.totalReward,
     delegateRewardRate: ret.rewardRate,
+  }
+}
+
+async function addrIncentiveCheck(data) {
+  let ret = addrIncentive.getIncentiveMulti(
+    Number(data.address), Number(data.startepoch), Number(data.endepoch))
+  return {
+    addrReward: ret,
   }
 }
 
@@ -73,6 +86,12 @@ app.get('/minerCalc', async function (req, res) {
 app.get('/delegateCalc', async function (req, res) {
   console.log(req.query)
   let info = await calcDelegator(req.query)
+  res.send(info)
+});
+
+app.get('/addrIncentiveCheck', async function (req, res) {
+  console.log(req.query)
+  let info = await addrIncentiveCheck(req.query)
   res.send(info)
 });
 
