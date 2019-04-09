@@ -29,4 +29,8 @@ $ yarn start
 
 ## Step 4 Use the Web UI to calculate
 
+Open browser to URL:
+
+http://localhost:3000
+
 finish.
