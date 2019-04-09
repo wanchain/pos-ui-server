@@ -26,3 +26,7 @@ $ cd pos-ui-server
 $ yarn
 $ yarn start
 ```
+
+## Step 4 Use the Web UI to calculate
+
+finish.
