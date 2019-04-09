@@ -5,12 +5,14 @@ const Web3 = require('web3');
 const Staker = require('./incentive_utils/staker')
 const RewardRate = require('./incentive_utils/rewardRate')
 const AddrIncentive = require('./incentive_utils/getIncentive')
+const GetActivity = require('./incentive_utils/getActivity')
 
 let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
 const staker = new Staker(web3)
 const rewardRate = new RewardRate(web3)
 const addrIncentive = new AddrIncentive(web3)
+const getActivity = new GetActivity(web3)
 
 web3ext.extend(web3);
 
@@ -48,9 +50,19 @@ async function calcDelegator(data) {
 
 async function addrIncentiveCheck(data) {
   let ret = addrIncentive.getIncentiveMulti(
-    Number(data.address), Number(data.startepoch), Number(data.endepoch))
+    data.address, Number(data.startepoch), Number(data.endepoch))
   return {
     addrReward: ret,
+  }
+}
+
+async function addrActivityCheck(data) {
+  let ret = getActivity.getActivityMulti(
+    data.address, Number(data.startepoch), Number(data.endepoch))
+  return {
+    addrMine: ret.mine,
+    addrEp: ret.el,
+    addrRp: ret.rp,
   }
 }
 
@@ -92,6 +104,12 @@ app.get('/delegateCalc', async function (req, res) {
 app.get('/addrIncentiveCheck', async function (req, res) {
   console.log(req.query)
   let info = await addrIncentiveCheck(req.query)
+  res.send(info)
+});
+
+app.get('/addrActivityCheck', async function (req, res) {
+  console.log(req.query)
+  let info = await addrActivityCheck(req.query)
   res.send(info)
 });
 
