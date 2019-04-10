@@ -2,6 +2,15 @@ A Demo UI for Wanchain POS Incentive Calculator.
 
 # How to use
 
+## Your can start with Docker simply
+
+```
+$ docker run -d -p 3000:3000 -p 8000:8000 -p 17717:17717 -v /YourGwanPath:/root/.wanchain molin0000/pos_ui
+```
+Then browse your `http://localhost:3000/` to view the website.
+
+If you do not want to use docker, you can use the code to run as follow steps.
+
 ## Step 1 start a local gwan node
 ```
 $ gwan --pluto --rpc
