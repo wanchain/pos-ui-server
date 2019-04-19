@@ -27,7 +27,7 @@ async function getInfoFromWeb3() {
     delePartiCnt: staker.getDelegateSenderCount(blockNumber),
     epochID: web3.pos.getEpochID(),
     slotID: web3.pos.getSlotID(),
-    epochPercent: web3.pos.getSlotID()*100 / web3.pos.getSlotCount(),
+    epochPercent: web3.pos.getSlotID() * 100 / web3.pos.getSlotCount(),
     yearReward: rewardRate.getYearReward()
   }
 }
@@ -86,32 +86,57 @@ app.get('/', function (req, res) {
 });
 
 app.get('/info', async function (req, res) {
-  let info = await getInfoFromWeb3()
-  res.send(info)
+  try {
+    let info = await getInfoFromWeb3()
+    res.send(info)
+  } catch (error) {
+    console.log(error)
+    res.send(error)
+  }
 });
 
 app.get('/minerCalc', async function (req, res) {
-  console.log(req.query)
-  let info = await calcMiner(req.query)
-  res.send(info)
+  try {
+    console.log(req.query)
+    let info = await calcMiner(req.query)
+    res.send(info)
+  } catch (error) {
+    console.log(error)    
+    res.send(error)
+  }
 });
 
 app.get('/delegateCalc', async function (req, res) {
-  console.log(req.query)
-  let info = await calcDelegator(req.query)
-  res.send(info)
+  try {
+    console.log(req.query)
+    let info = await calcDelegator(req.query)
+    res.send(info)
+  } catch (error) {
+    console.log(error)
+    res.send(error)
+  }
 });
 
 app.get('/addrIncentiveCheck', async function (req, res) {
-  console.log(req.query)
-  let info = await addrIncentiveCheck(req.query)
-  res.send(info)
+  try {
+    console.log(req.query)
+    let info = await addrIncentiveCheck(req.query)
+    res.send(info)
+  } catch (error) {
+    console.log(error)
+    res.send(error)
+  }
 });
 
 app.get('/addrActivityCheck', async function (req, res) {
-  console.log(req.query)
-  let info = await addrActivityCheck(req.query)
-  res.send(info)
+  try {
+    console.log(req.query)
+    let info = await addrActivityCheck(req.query)
+    res.send(info)
+  } catch (error) {
+    console.log(error)
+    res.send(error)
+  }
 });
 
 const port = 8000;
