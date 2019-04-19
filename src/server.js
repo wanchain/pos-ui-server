@@ -28,6 +28,7 @@ async function getInfoFromWeb3() {
     epochID: web3.pos.getEpochID(),
     slotID: web3.pos.getSlotID(),
     epochPercent: web3.pos.getSlotID()*100 / web3.pos.getSlotCount(),
+    yearReward: rewardRate.getYearReward()
   }
 }
 

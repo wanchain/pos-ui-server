@@ -63,6 +63,17 @@ class RewardRate {
     return ret
   }
 
+  getYearReward() {
+    var epochTime = this.web3.pos.getSlotCount() * this.web3.pos.getSlotTime()
+    var epochCountInYear = (365 * 24 * 3600) / epochTime
+    var epochID = this.web3.pos.getEpochID()
+    var redutionTimes = Math.floor(epochID / epochCountInYear)
+    var reduceRate = 0.88
+
+    reduceRate = Math.pow(reduceRate, redutionTimes)
+    var yearReward = reduceRate * 2.5e6
+    return yearReward
+  }
 }
 
 module.exports = RewardRate
