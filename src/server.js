@@ -67,6 +67,15 @@ async function addrActivityCheck(data) {
   }
 }
 
+async function workingHistoryQuery(data) {
+  let ret = addrIncentive.getAddrWorkingHistory(
+    data.address, Number(data.startepoch), Number(data.endepoch))
+  return {
+    workingEpoch: ret.workingEpoch,
+    disworkingEpoch: ret.disworkingEpoch,
+  }
+}
+
 //allow custom header and CORS
 app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -132,6 +141,17 @@ app.get('/addrActivityCheck', async function (req, res) {
   try {
     console.log(req.query)
     let info = await addrActivityCheck(req.query)
+    res.send(info)
+  } catch (error) {
+    console.log(error)
+    res.send(error)
+  }
+});
+
+app.get('/workingHistoryQuery', async function (req, res) {
+  try {
+    console.log(req.query)
+    let info = await workingHistoryQuery(req.query)
     res.send(info)
   } catch (error) {
     console.log(error)
