@@ -79,6 +79,11 @@ async function workingHistoryQuery(data) {
   }
 }
 
+async function validatorInfoQuery(data) {
+  var blockNumber = await web3.eth.blockNumber
+  return await staker.getValidatorInfo(blockNumber, data.address)
+}
+
 //allow custom header and CORS
 app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -155,6 +160,17 @@ app.get('/workingHistoryQuery', async function (req, res) {
   try {
     console.log(req.query)
     let info = await workingHistoryQuery(req.query)
+    res.send(info)
+  } catch (error) {
+    console.log(error)
+    res.send(error)
+  }
+});
+
+app.get('/validatorInfo', async function (req, res) {
+  try {
+    console.log(req.query)
+    let info = await validatorInfoQuery(req.query)
     res.send(info)
   } catch (error) {
     console.log(error)
