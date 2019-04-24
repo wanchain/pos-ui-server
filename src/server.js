@@ -19,16 +19,19 @@ web3ext.extend(web3);
 async function getInfoFromWeb3() {
   let blockNumber = await web3.eth.blockNumber
   let totalStake = staker.getTotalStake(blockNumber)
+  let epochID = Number(web3.pos.getEpochID())
   return {
     blockNumber: blockNumber,
     totalStake: totalStake,
     minerCount: staker.getMinerCount(blockNumber),
     delegatorCount: staker.getDelegatorCount(blockNumber),
     delePartiCnt: staker.getDelegateSenderCount(blockNumber),
-    epochID: web3.pos.getEpochID(),
+    epochID: epochID,
     slotID: web3.pos.getSlotID(),
     epochPercent: web3.pos.getSlotID() * 100 / web3.pos.getSlotCount(),
-    yearReward: rewardRate.getYearReward()
+    yearReward: rewardRate.getYearReward(),
+    curEpochStartTime: web3.pos.getTimeByEpochID(epochID),
+    nextEpochStartTime: web3.pos.getTimeByEpochID(epochID + 1),
   }
 }
 
