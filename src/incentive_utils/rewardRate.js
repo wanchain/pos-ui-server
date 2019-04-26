@@ -32,11 +32,8 @@ class RewardRate {
     }
 
     let sumSelfProb = 0
-    for (var i = 0; i < locktime; i++) {
-      let prob = Number(this.web3.fromWei(this.web3.pos.calProbability(startEpochID + i, amount, locktime, startEpochID)))
-      sumSelfProb += prob
-    }
-
+    let prob = Number(this.web3.fromWei(this.web3.pos.calProbability(amount, locktime)))
+    sumSelfProb = prob * locktime
 
     let totalReward = total * locktime * (sumSelfProb / (sumProbility * locktime + sumSelfProb))
     let rewardRate = totalReward * countInYear / amount;
