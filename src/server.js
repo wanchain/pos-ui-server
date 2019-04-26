@@ -16,6 +16,8 @@ const getActivity = new GetActivity(web3)
 
 web3ext.extend(web3);
 
+let info = null;
+
 async function getInfoFromWeb3() {
   let blockNumber = await web3.eth.blockNumber
   let totalStake = staker.getTotalStake(blockNumber)
@@ -104,7 +106,6 @@ app.get('/', function (req, res) {
 
 app.get('/info', async function (req, res) {
   try {
-    let info = await getInfoFromWeb3()
     res.send(info)
   } catch (error) {
     console.log(error)
@@ -178,7 +179,19 @@ app.get('/validatorInfo', async function (req, res) {
   }
 });
 
+async function getInfoTimer() {
+  console.log("server get info start.")
+  info = await getInfoFromWeb3()
+  console.log("server get info finish.")
+}
+
+setInterval(getInfoTimer, 5000, null);
+console.log("timer start.")
+
 const port = 8000;
 server.listen(port);
 console.log('listening on port ', port);
+
+
+
 
