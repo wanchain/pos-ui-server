@@ -119,7 +119,7 @@ app.get('/minerCalc', async function (req, res) {
     let info = await calcMiner(req.query)
     res.send(info)
   } catch (error) {
-    console.log(error)    
+    console.log(error)
     res.send(error)
   }
 });
@@ -180,9 +180,14 @@ app.get('/validatorInfo', async function (req, res) {
 });
 
 async function getInfoTimer() {
-  console.log("server get info start.")
-  info = await getInfoFromWeb3()
-  console.log("server get info finish.")
+  try {
+    console.log("server get info start.")
+    info = await getInfoFromWeb3()
+    console.log("server get info finish.")
+  } catch (error) {
+    console.log(error)
+  }
+
 }
 
 setInterval(getInfoTimer, 5000, null);
