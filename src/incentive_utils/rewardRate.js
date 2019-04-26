@@ -33,9 +33,9 @@ class RewardRate {
 
     let sumSelfProb = 0
     let prob = Number(this.web3.fromWei(this.web3.pos.calProbability(amount, locktime)))
-    sumSelfProb = prob * locktime
+    sumSelfProb = prob
 
-    let totalReward = total * locktime * (sumSelfProb / (sumProbility * locktime + sumSelfProb))
+    let totalReward = total * locktime * (sumSelfProb / (sumProbility + sumSelfProb))
     let rewardRate = totalReward * countInYear / amount;
 
     console.log('estimate reward:' + totalReward + ', reward Rate(year): ' + rewardRate * 100 + '%')
