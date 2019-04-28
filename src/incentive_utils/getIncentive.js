@@ -31,7 +31,11 @@ class GetAddrIncentive {
   getIncentiveMulti(addr, startEpoch, endEpoch) {
     var total = 0
     for (let i = startEpoch; i < endEpoch; i++) {
-      total += this.getAddrIncentive(addr, i)
+      try {
+        total += this.getAddrIncentive(addr, i)
+      } catch (error) {
+        console.log(error)
+      }
     }
 
     console.log("total:" + total)
@@ -47,13 +51,13 @@ class GetAddrIncentive {
       let details = this.web3.pos.getEpochStakerInfoAll(i)
       let found = false
       for (var m = 0; m < details.length; m++) {
-        if(details[m].Addr === addr || details[m].Addr === xAddr) {
+        if (details[m].Addr === addr || details[m].Addr === xAddr) {
           workingEpoch.push(i)
           found = true
           break;
         }
       }
-      if(!found) {
+      if (!found) {
         disworkingEpoch.push(i)
       }
     }
