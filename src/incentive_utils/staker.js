@@ -21,7 +21,7 @@ class staker {
 
       if(staker[i].Clients.length > 0) {
         for (let m = 0; m < staker[i].Clients.length; m++) {
-          totalAmount += Number(staker[i].Clients[m].Amount);
+          totalAmount += Number(this.web3.fromWei(staker[i].Clients[m].Amount));
         }
       }
     }
