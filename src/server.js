@@ -42,6 +42,9 @@ async function getInfoFromWeb3() {
 async function getStakerInfo() {
   let blockNumber = await web3.eth.blockNumber
   stakerInfo = staker.getStakerInfo(blockNumber)
+  for (let i = 0; i < stakerInfo.length; i++) {
+    stakerInfo[i].Amount = web3.fromWei(stakerInfo[i].Amount)
+  }
   return stakerInfo
 }
 
