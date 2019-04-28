@@ -17,6 +17,8 @@ const getActivity = new GetActivity(web3)
 web3ext.extend(web3);
 
 let info = null;
+let stakerInfo = null
+
 
 async function getInfoFromWeb3() {
   let blockNumber = await web3.eth.blockNumber
@@ -35,6 +37,12 @@ async function getInfoFromWeb3() {
     curEpochStartTime: web3.pos.getTimeByEpochID(epochID),
     nextEpochStartTime: web3.pos.getTimeByEpochID(epochID + 1),
   }
+}
+
+async function getStakerInfo() {
+  let blockNumber = await web3.eth.blockNumber
+  stakerInfo = staker.getStakerInfo(blockNumber)
+  return stakerInfo
 }
 
 async function calcMiner(data) {
@@ -179,10 +187,22 @@ app.get('/validatorInfo', async function (req, res) {
   }
 });
 
+app.get('/stakerInfo', async function (req, res) {
+  try {
+    console.log("/stakerInfo")
+    console.log(req.query)
+    res.send(stakerInfo)
+  } catch (error) {
+    console.log(error)
+    res.send(error)
+  }
+});
+
 async function getInfoTimer() {
   try {
     console.log("server get info start.")
     info = await getInfoFromWeb3()
+    stakerInfo = await getStakerInfo()
     console.log("server get info finish.")
   } catch (error) {
     console.log(error)

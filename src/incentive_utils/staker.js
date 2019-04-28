@@ -6,6 +6,11 @@ class staker {
     this.web3 = web3
   }
 
+  getStakerInfo(blockNumber) {
+    var staker = this.web3.pos.getStakerInfo(blockNumber)
+    return staker
+  }
+
   getTotalStake(blockNumber) {
     var totalAmount = 0
 
