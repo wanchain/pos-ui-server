@@ -30,7 +30,7 @@ class GetAddrIncentive {
 
   getIncentiveMulti(addr, startEpoch, endEpoch) {
     var total = 0
-    for (let i = startEpoch; i < endEpoch; i++) {
+    for (let i = startEpoch; i <= endEpoch; i++) {
       try {
         total += this.getAddrIncentive(addr, i)
       } catch (error) {

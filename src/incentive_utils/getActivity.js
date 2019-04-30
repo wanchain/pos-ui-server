@@ -31,7 +31,7 @@ class GetActivity {
   
   getActivityMulti(addr, startEpoch, endEpoch) {
     var ret = { mine: 0, el: 0, rp: 0 }
-    for (var i = startEpoch; i < endEpoch; i++) {
+    for (var i = startEpoch; i <= endEpoch; i++) {
       var once = this.getActivity(addr, i)
       ret.mine += once.mine
       ret.el += once.el
