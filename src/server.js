@@ -36,6 +36,7 @@ async function getInfoFromWeb3() {
     yearReward: rewardRate.getYearReward(),
     curEpochStartTime: web3.pos.getTimeByEpochID(epochID),
     nextEpochStartTime: web3.pos.getTimeByEpochID(epochID + 1),
+    stableBlock: web3.pos.getMaxStableBlkNumber(),
   }
 }
 
