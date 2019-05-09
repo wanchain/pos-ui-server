@@ -24,6 +24,12 @@ class staker {
           totalAmount += Number(this.web3.fromWei(staker[i].Clients[m].Amount));
         }
       }
+
+      if(staker[i].Partners.length > 0) {
+        for (let m = 0; m < staker[i].Partners.length; m++) {
+          totalAmount += Number(this.web3.fromWei(staker[i].Partners[m].Amount));
+        }
+      }
     }
 
     return totalAmount
