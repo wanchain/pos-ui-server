@@ -7,7 +7,7 @@ class RewardRate {
 
   estimateMinerReward(amount, locktime) {
     //Because the first epoch do not generate block, the last epoch do not send message. so it is locktime - 1;
-    locktime = locktime - 1; 
+    //locktime = locktime - 1; 
 
 
     var epochTime = this.web3.pos.getSlotCount() * this.web3.pos.getSlotTime()
@@ -55,7 +55,7 @@ class RewardRate {
   // Input like: 10000, 30, 10.
   estimateSendDelegateReward(amount, locktime, feeRate) {
     var epochTime = this.web3.pos.getSlotCount() * this.web3.pos.getSlotTime()
-    var countInYear = (365 * 24 * 3600) / epochTime / (locktime - 1)
+    var countInYear = (365 * 24 * 3600) / epochTime / locktime
 
     let ret = this.estimateMinerReward(amount, 7)
     ret.totalReward = ret.totalReward * (locktime / 7)
