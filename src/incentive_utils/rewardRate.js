@@ -58,8 +58,9 @@ class RewardRate {
     var countInYear = (365 * 24 * 3600) / epochTime / (locktime - 1)
 
     let ret = this.estimateMinerReward(amount, 7)
+    ret.totalReward = ret.totalReward * (locktime / 7)
     ret.totalReward = ret.totalReward * (100 - feeRate) / 100
-    ret.rewardRate = (ret.totalReward * (locktime / 7) * countInYear / amount) * 100;
+    ret.rewardRate = (ret.totalReward * countInYear / amount) * 100;
 
     return ret
   }
