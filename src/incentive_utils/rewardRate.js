@@ -55,11 +55,11 @@ class RewardRate {
   // Input like: 10000, 30, 10.
   estimateSendDelegateReward(amount, locktime, feeRate) {
     var epochTime = this.web3.pos.getSlotCount() * this.web3.pos.getSlotTime()
-    var countInYear = (365 * 24 * 3600) / epochTime / locktime
+    var countInYear = (365 * 24 * 3600) / epochTime / (locktime - 1)
 
-    let ret = this.estimateMinerReward(amount, locktime)
+    let ret = this.estimateMinerReward(amount, 7)
     ret.totalReward = ret.totalReward * (100 - feeRate) / 100
-    ret.rewardRate = (ret.totalReward * countInYear / amount) * 100;
+    ret.rewardRate = (ret.totalReward * (locktime / 7) * countInYear / amount) * 100;
 
     return ret
   }
