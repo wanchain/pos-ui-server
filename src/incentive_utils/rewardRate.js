@@ -27,7 +27,7 @@ class RewardRate {
     let total = Number(this.web3.fromWei(incentivePool[0]))
 
 
-    let probilities = this.web3.pos.getEpochStakerInfoAll(startEpochID)
+    let probilities = this.web3.pos.getEpochStakerInfoAll(startEpochID + 2)
 
     //sum probability in one epoch
     var sumProbility = 0
