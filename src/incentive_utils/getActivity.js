@@ -9,21 +9,21 @@ class GetActivity {
     addr = addr.toLowerCase()
     var act = this.web3.pos.getActivity(epoch)
     var ret = { mine: 0, el: 0, rp: 0 }
-    for (var i = 0; i < act.EpLeader.length; i++) {
-      if (act.EpLeader[i] == addr) {
-        ret.el += act.EpActivity[i]
+    for (var i = 0; i < act.epLeader.length; i++) {
+      if (act.epLeader[i] == addr) {
+        ret.el += act.epActivity[i]
       }
     }
   
-    for (var i = 0; i < act.RpLeader.length; i++) {
-      if (act.RpLeader[i] == addr) {
-        ret.rp += act.RpActivity[i]
+    for (var i = 0; i < act.rpLeader.length; i++) {
+      if (act.rpLeader[i] == addr) {
+        ret.rp += act.rpActivity[i]
       }
     }
   
-    for (var i = 0; i < act.SltLeader.length; i++) {
-      if (act.SltLeader[i] == addr) {
-        ret.mine += act.SlBlocks[i]
+    for (var i = 0; i < act.sltLeader.length; i++) {
+      if (act.sltLeader[i] == addr) {
+        ret.mine += act.slBlocks[i]
       }
     }
     return ret

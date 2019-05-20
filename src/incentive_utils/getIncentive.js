@@ -16,10 +16,14 @@ class GetAddrIncentive {
     var total = 0
     for (var i = 0; i < details.length; i++) {
       var element = details[i];
-      for (var m = 0; m < element.length; m++) {
-        var a = element[m];
-        if (a.Addr == addr) {
-          total += Number(this.web3.fromWei(a.Incentive))
+      if (element.address == addr) {
+        total += Number(this.web3.fromWei(element.incentive))
+      }
+
+      for (var m = 0; m < element.delegators.length; m++) {
+        var a = element.delegators[m];
+        if (a.address == addr) {
+          total += Number(this.web3.fromWei(a.incentive))
         }
       }
     }
@@ -51,7 +55,7 @@ class GetAddrIncentive {
       let details = this.web3.pos.getEpochStakerInfoAll(i)
       let found = false
       for (var m = 0; m < details.length; m++) {
-        if (details[m].Addr === addr || details[m].Addr === xAddr) {
+        if (details[m].addr === addr || details[m].addr === xAddr) {
           workingEpoch.push(i)
           found = true
           break;

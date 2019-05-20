@@ -17,17 +17,17 @@ class staker {
     var staker = this.web3.pos.getStakerInfo(blockNumber)
 
     for (var i = 0; i < staker.length; i++) {
-      totalAmount += Number(this.web3.fromWei(staker[i].Amount))
+      totalAmount += Number(this.web3.fromWei(staker[i].amount))
 
-      if(staker[i].Clients.length > 0) {
-        for (let m = 0; m < staker[i].Clients.length; m++) {
-          totalAmount += Number(this.web3.fromWei(staker[i].Clients[m].Amount));
+      if(staker[i].clients.length > 0) {
+        for (let m = 0; m < staker[i].clients.length; m++) {
+          totalAmount += Number(this.web3.fromWei(staker[i].clients[m].amount));
         }
       }
 
-      if(staker[i].Partners.length > 0) {
-        for (let m = 0; m < staker[i].Partners.length; m++) {
-          totalAmount += Number(this.web3.fromWei(staker[i].Partners[m].Amount));
+      if(staker[i].partners.length > 0) {
+        for (let m = 0; m < staker[i].partners.length; m++) {
+          totalAmount += Number(this.web3.fromWei(staker[i].partners[m].amount));
         }
       }
     }
@@ -44,7 +44,7 @@ class staker {
 
     var delegatorCount = 0
     for (var i = 0; i < staker.length; i++) {
-      if (staker[i].FeeRate < 100) {
+      if (staker[i].feeRate < 10000) {
         delegatorCount++
       }
     }
@@ -57,8 +57,8 @@ class staker {
 
     var count = 0
     for (var i = 0; i < staker.length; i++) {
-      if (staker[i].Clients.length > 0) {
-        count += staker[i].Clients.length
+      if (staker[i].clients.length > 0) {
+        count += staker[i].clients.length
       }
     }
 
@@ -71,11 +71,11 @@ class staker {
     
     var staker = this.web3.pos.getStakerInfo(blockNumber)
     for (var i = 0; i < staker.length; i++) {
-      var addrGet = staker[i].Address.toLowerCase()
+      var addrGet = staker[i].address.toLowerCase()
       if (address === addrGet || addressHead === addrGet) {
-        delete(staker[i].PubSec256)
-        delete(staker[i].PubBn256)
-        delete(staker[i].From)
+        delete(staker[i].pubSec256)
+        delete(staker[i].pubBn256)
+        delete(staker[i].from)
 
         return staker[i]
       }
