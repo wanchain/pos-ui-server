@@ -47,7 +47,7 @@ async function getStakerInfo() {
     stakerInfo[i].amount = web3.fromWei(stakerInfo[i].amount)
     if (stakerInfo[i].clients !== undefined) {
       for (let m = 0; m < stakerInfo[i].clients.length; m++) {
-        stakerInfo[i].clients[m].Amount = web3.fromWei(stakerInfo[i].clients[m].Amount)
+        stakerInfo[i].clients[m].amount = web3.fromWei(stakerInfo[i].clients[m].amount)
       }
 
       for (let m = 0; m < stakerInfo[i].partners.length; m++) {
