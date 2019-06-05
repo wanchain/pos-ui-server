@@ -69,7 +69,13 @@ class RewardRate {
     var epochTime = this.web3.pos.getSlotCount() * this.web3.pos.getSlotTime()
     var epochCountInYear = (365 * 24 * 3600) / epochTime
     var epochID = this.web3.pos.getEpochID()
-    var redutionTimes = Math.floor(epochID / epochCountInYear)
+    var info = this.web3.pos.getPosInfo();
+    var firstEpochID = info.firstEpochId;
+    if(epochID < firstEpochID) {
+      return 0;
+    }
+
+    var redutionTimes = Math.floor((epochID - firstEpochID) / epochCountInYear)
     var reduceRate = 0.88
 
     reduceRate = Math.pow(reduceRate, redutionTimes)
