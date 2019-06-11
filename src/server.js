@@ -24,6 +24,14 @@ async function getInfoFromWeb3() {
   let blockNumber = await web3.eth.blockNumber
   let totalStake = staker.getTotalStake(blockNumber)
   let epochID = Number(web3.pos.getEpochID())
+  
+  let stableNumber = 0;
+  try {
+    stableNumber = web3.pos.getMaxStableBlkNumber();
+  } catch (error) {
+    
+  }
+
   return {
     blockNumber: blockNumber,
     totalStake: totalStake,
@@ -36,7 +44,7 @@ async function getInfoFromWeb3() {
     yearReward: rewardRate.getYearReward(),
     curEpochStartTime: web3.pos.getTimeByEpochID(epochID),
     nextEpochStartTime: web3.pos.getTimeByEpochID(epochID + 1),
-    stableBlock: web3.pos.getMaxStableBlkNumber(),
+    stableBlock: stableNumber,
   }
 }
 
