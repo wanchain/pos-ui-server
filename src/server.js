@@ -2,12 +2,14 @@ var app = require('express')();
 var server = require('http').Server(app);
 const web3ext = require('./utils/web3ext');
 const Web3 = require('web3');
+const net = require('net')
 const Staker = require('./incentive_utils/staker')
 const RewardRate = require('./incentive_utils/rewardRate')
 const AddrIncentive = require('./incentive_utils/getIncentive')
 const GetActivity = require('./incentive_utils/getActivity')
 
 let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+//let web3 = new Web3(new Web3.providers.IpcProvider("~/wanchainbootnode/internal/gwan.ipc", net));
 
 const staker = new Staker(web3)
 const rewardRate = new RewardRate(web3)
