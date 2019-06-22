@@ -47,6 +47,7 @@ async function getInfoFromWeb3() {
     curEpochStartTime: web3.pos.getTimeByEpochID(epochID),
     nextEpochStartTime: web3.pos.getTimeByEpochID(epochID + 1),
     stableBlock: stableNumber,
+    lastEpochSlotActivity: web3.pos.getActivity(epochID - 1).slActivity,
   }
 }
 
