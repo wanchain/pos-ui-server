@@ -28,8 +28,10 @@ async function getInfoFromWeb3() {
   let epochID = Number(web3.pos.getEpochID())
   
   let stableNumber = 0;
+  let lastEpochSlotActivity = 0;
   try {
     stableNumber = web3.pos.getMaxStableBlkNumber();
+    lastEpochSlotActivity = web3.pos.getActivity(epochID - 1).slActivity;
   } catch (error) {
     
   }
@@ -47,7 +49,7 @@ async function getInfoFromWeb3() {
     curEpochStartTime: web3.pos.getTimeByEpochID(epochID),
     nextEpochStartTime: web3.pos.getTimeByEpochID(epochID + 1),
     stableBlock: stableNumber,
-    lastEpochSlotActivity: web3.pos.getActivity(epochID - 1).slActivity,
+    lastEpochSlotActivity: lastEpochSlotActivity,
   }
 }
 
