@@ -1,4 +1,5 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
 var server = require('http').Server(app);
 const web3ext = require('./utils/web3ext');
 const Web3 = require('web3');
@@ -134,9 +135,11 @@ app.all('*', function (req, res, next) {
   }
 });
 
-app.get('/', function (req, res) {
-  res.send("hello world")
-});
+// app.get('/', function (req, res) {
+//   res.send("hello world")
+// });
+
+app.use(express.static("html"));
 
 app.get('/info', async function (req, res) {
   try {
