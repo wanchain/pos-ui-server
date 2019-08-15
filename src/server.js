@@ -9,7 +9,7 @@ const RewardRate = require('./incentive_utils/rewardRate')
 const AddrIncentive = require('./incentive_utils/getIncentive')
 const GetActivity = require('./incentive_utils/getActivity')
 
-let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+let web3 = new Web3(new Web3.providers.HttpProvider("http://192.168.1.19:3333"));
 //let web3 = new Web3(new Web3.providers.IpcProvider("~/wanchainbootnode/internal/gwan.ipc", net));
 
 const staker = new Staker(web3)
@@ -74,6 +74,14 @@ async function getStakerInfo() {
 
 async function calcMiner(data) {
   let ret = rewardRate.estimateMinerReward(Number(data.amount), Number(data.locktime))
+  return {
+    minerTotalReward: ret.totalReward,
+    minerRewardRate: ret.rewardRate,
+  }
+}
+
+async function calcValidator(data) {
+  let ret = rewardRate.estimateMinerRewardWithDelegator(Number(data.amount), Number(data.locktime), Number(data.delegateAmount), Number(data.feeRate))
   return {
     minerTotalReward: ret.totalReward,
     minerRewardRate: ret.rewardRate,
@@ -160,6 +168,18 @@ app.get('/minerCalc', async function (req, res) {
     res.send(error)
   }
 });
+
+app.get('/minerValidator', async function (req, res) {
+  try {
+    console.log(req.query)
+    let info = await calcValidator(req.query)
+    res.send(info)
+  } catch (error) {
+    console.log(error)
+    res.send(error)
+  }
+});
+
 
 app.get('/delegateCalc', async function (req, res) {
   try {
