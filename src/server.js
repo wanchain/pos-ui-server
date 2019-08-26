@@ -251,7 +251,7 @@ async function getInfoTimer() {
   try {
     console.log("server get info start.")
     info = await getInfoFromWeb3()
-    stakerInfo = await getStakerInfo()
+    // stakerInfo = await getStakerInfo()
     console.log("server get info finish.")
   } catch (error) {
     console.log(error)
